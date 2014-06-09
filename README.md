@@ -30,7 +30,8 @@ docker run -t -i -p 25565:25565 --volumes-from MCDATA aduermael/minecraft-server
 You can use 2 other images I did to display a map of your Minecraft world in a web browser:
 
 ### Pull 2 more images:
-```docker pull aduermael/minecraft-webmap
+```
+docker pull aduermael/minecraft-webmap
 docker pull aduermael/minecraft-webmap-generator
 ```
 
