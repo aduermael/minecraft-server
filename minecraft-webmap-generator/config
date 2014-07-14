@@ -24,7 +24,7 @@ renders["Night"] = {
 renders["Nether"] = {
     "world": "Minecraft world",
     "title": "Minecraft world (nether)",
-    "rendermode": "nether_smooth_lighting",
+    "rendermode": "nether",
     "dimension": "nether"
 }
 
