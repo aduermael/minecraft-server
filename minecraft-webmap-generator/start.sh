@@ -1,2 +1,2 @@
 #!/bin/bash
-overviewer.py --config=/srv/config --genpoi
+overviewer.py --config=/srv/config
