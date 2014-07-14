@@ -1,0 +1,32 @@
+worlds["Minecraft world"] = "/minecraft-data/world"
+
+def signFilter(poi):
+    if poi['id'] == 'Sign':
+        return "\n".join([poi['Text1'], poi['Text2'], poi['Text3'], poi['Text4']])
+
+
+renders["Day"] = {
+    "world": "Minecraft world",
+    "title": "Minecraft world",
+    "rendermode": normal,
+    "dimension": "overworld",
+    "markers": [dict(name="All signs", filterFunction=signFilter)]
+}
+
+renders["Night"] = {
+    "world": "Minecraft world",
+    "title": "Minecraft world (night)",
+    "rendermode": night,
+    "dimension": "overworld"
+}
+
+
+renders["Nether"] = {
+    "world": "Minecraft world",
+    "title": "Minecraft world (nether)",
+    "rendermode": nether,
+    "dimension": "nether",
+}
+
+
+outputdir = "/minecraft-webmap"
