@@ -8,7 +8,7 @@ def signFilter(poi):
 renders["Day"] = {
     "world": "Minecraft world",
     "title": "Minecraft world",
-    "rendermode": normal,
+    "rendermode": "smooth_lighting",
     "dimension": "overworld",
     "markers": [dict(name="All signs", filterFunction=signFilter)]
 }
@@ -16,7 +16,7 @@ renders["Day"] = {
 renders["Night"] = {
     "world": "Minecraft world",
     "title": "Minecraft world (night)",
-    "rendermode": night,
+    "rendermode": "smooth_night",
     "dimension": "overworld"
 }
 
@@ -24,8 +24,15 @@ renders["Night"] = {
 renders["Nether"] = {
     "world": "Minecraft world",
     "title": "Minecraft world (nether)",
-    "rendermode": nether,
-    "dimension": "nether",
+    "rendermode": "nether_smooth_lighting",
+    "dimension": "nether"
+}
+
+renders["End"] = {
+    "world": "Minecraft world",
+    "title": "Minecraft world (end)",
+    "rendermode": "normal",
+    "dimension": "end"
 }
 
 
