@@ -17,5 +17,6 @@ ENV VERSION 1.7.9
 RUN wget --no-check-certificate https://s3.amazonaws.com/Minecraft.Download/versions/${VERSION}/${VERSION}.jar -P ~/.minecraft/versions/${VERSION}/
 
 ADD start.sh /srv/start.sh
+ADD config /srv/config
 
 ENTRYPOINT ["/bin/bash","/srv/start.sh"]
