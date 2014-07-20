@@ -4,13 +4,16 @@ def signFilter(poi):
     if poi['id'] == 'Sign':
         return "\n".join([poi['Text1'], poi['Text2'], poi['Text3'], poi['Text4']])
 
-custom_night = [Base(),SmoothLighting(strength=0.8,night=True,color=True)]
-custom_night2 = [Base(),EdgeLines(),SmoothLighting(strength=0.8,night=True,color=True)]
+
+custom_day = [Base(),SmoothLighting(strength=0.9,color=True)]
+
+custom_night = [Base(),SmoothLighting(strength=0.9,night=True,color=True)]
+custom_night2 = [Base(),EdgeLines(),SmoothLighting(strength=0.9,night=True,color=True)]
 
 renders["Day"] = {
     "world": "Minecraft world",
     "title": "Minecraft world",
-    "rendermode": "smooth_lighting",
+    "rendermode": custom_day,
     "dimension": "overworld",
     "markers": [dict(name="All signs", filterFunction=signFilter)]
 }
@@ -20,6 +23,7 @@ renders["Night"] = {
     "title": "Minecraft world (night)",
     "rendermode": custom_night,
     "dimension": "overworld"
+    "markers": [dict(name="All signs", filterFunction=signFilter)]
 }
 
 
