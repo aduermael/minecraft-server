@@ -22,7 +22,7 @@ renders["Night"] = {
     "world": "Minecraft world",
     "title": "Minecraft world (night)",
     "rendermode": custom_night,
-    "dimension": "overworld"
+    "dimension": "overworld",
     "markers": [dict(name="All signs", filterFunction=signFilter)]
 }
 
