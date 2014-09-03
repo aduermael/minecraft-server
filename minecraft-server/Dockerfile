@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:13.04
 
 RUN apt-get install -y python-software-properties
 RUN apt-get install -y software-properties-common
