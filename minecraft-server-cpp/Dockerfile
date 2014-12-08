@@ -21,4 +21,4 @@ EXPOSE 80
 
 ENTRYPOINT ["/bin/bash","/srv/start.sh"]
 # server name
-CMD ["default"]
+CMD ["default","admin","admin"]
