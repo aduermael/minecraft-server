@@ -23,5 +23,6 @@ rm /minecraft-data/${1}/webadmin.ini
 rm /minecraft-data/${1}/webadmin.ini.tmp1
 mv /minecraft-data/${1}/webadmin.ini.tmp2 /minecraft-data/${1}/webadmin.ini
 
+cd /minecraft-data/${1}; ./MCServer;
 
 /bin/bash
