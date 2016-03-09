@@ -1,4 +1,4 @@
-worlds["Minecraft world"] = "/minecraft-data/world"
+worlds["Minecraft world"] = "/data/world"
 
 def signFilter(poi):
     if poi['id'] == 'Sign':
@@ -41,5 +41,4 @@ renders["End"] = {
     "dimension": "end"
 }
 
-
-outputdir = "/minecraft-webmap"
+outputdir = "/webmap"
