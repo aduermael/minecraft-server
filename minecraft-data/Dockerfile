@@ -1,6 +1,7 @@
-FROM ubuntu:14.04
+FROM busybox:latest
 
-VOLUME ["/minecraft-data"]
+ADD ./data /data
 
-ENTRYPOINT ["/bin/true"]
+VOLUME ["/data"]
 
+CMD ["/bin/true"]
