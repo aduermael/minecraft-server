@@ -1,9 +1,22 @@
 #!/bin/bash
 
-mv /srv/minecraft_server.jar /minecraft-data/minecraft_server.jar
+# Default version: 1.9
+# Can be overriten passing 2 parameters
+# 1: memory limit, 2: server version
+version="1.9"
+if [ -n "$2" ]
+then
+	version="$2"
+fi
 
-echo $@
+if [ ! -f "/data/minecraft_server.$(version).jar" ]
+then
+    curl "https://s3.amazonaws.com/Minecraft.Download/versions/$(version)/minecraft_server.$(version).jar" -o "/data/minecraft_server.$(version).jar"
+fi
 
-eval "$@"
+if [ ! -f /data/eula.txt ]
+then
+    echo "eula=true" > /data/eula.txt
+fi
 
-/bin/bash
+cd /data/; java -Xmx$1 -Xms$1 -jar "minecraft_server.$(version).jar" nogui

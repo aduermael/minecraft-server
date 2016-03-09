@@ -1,16 +1,17 @@
-FROM ubuntu:13.04
+FROM ubuntu:14.04
+ENV	DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -y python-software-properties
-RUN apt-get install -y software-properties-common
+RUN apt-get --yes update; apt-get --yes upgrade; apt-get --yes install software-properties-common
+RUN sudo apt-add-repository --yes ppa:webupd8team/java; apt-get --yes update
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
+    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
+    apt-get --yes install curl oracle-java8-installer
 
-RUN apt-get install -y openjdk-7-jdk
+ADD ./start.sh /start.sh
 
-ADD https://s3.amazonaws.com/Minecraft.Download/versions/1.8/minecraft_server.1.8.jar /srv/minecraft_server.jar
-ADD start.sh /srv/start.sh
+RUN chmod +x /start.sh
 
-WORKDIR /minecraft-data
 EXPOSE 25565
 
-ENTRYPOINT ["/bin/bash","/srv/start.sh"]
-
-CMD ["java -Xms1G -Xmx1G -jar minecraft_server.jar nogui"]
+ENTRYPOINT ["/start.sh"]
+CMD ["2G"]
