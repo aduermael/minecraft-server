@@ -9,9 +9,9 @@ then
 	version="$2"
 fi
 
-if [ ! -f "/data/minecraft_server.$(version).jar" ]
+if [ ! -f "/data/minecraft_server.${version}.jar" ]
 then
-    curl "https://s3.amazonaws.com/Minecraft.Download/versions/$(version)/minecraft_server.$(version).jar" -o "/data/minecraft_server.$(version).jar"
+    curl "https://s3.amazonaws.com/Minecraft.Download/versions/${version}/minecraft_server.${version}.jar" -o "/data/minecraft_server.${version}.jar"
 fi
 
 if [ ! -f /data/eula.txt ]
@@ -19,4 +19,4 @@ then
     echo "eula=true" > /data/eula.txt
 fi
 
-cd /data/; java -Xmx$1 -Xms$1 -jar "minecraft_server.$(version).jar" nogui
+cd /data/; java -Xmx$1 -Xms$1 -jar "minecraft_server.${version}.jar" nogui
