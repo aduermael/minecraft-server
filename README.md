@@ -1,58 +1,75 @@
-minecraft_server
+Dockerized Minecraft server
 ================
 
-A simple (& pluggable) Minecraft server. 
+A set of containers to run a Minecraft server, store generated data, and generate a world webmap.
 
-No data is store on the Minecraft server container. 
-You'll need to use **aduermael/minecraft-data** as well to run the server. 
+### Quick setup
 
-### Pull the 2 images:
-```
-docker pull aduermael/aduermael/minecraft-data
+#### Step 1: pull Docker images
+
+```shell
+# Simple volume container to store generated data
+docker pull aduermael/minecraft-data
+# The Minecraft server
 docker pull aduermael/minecraft-server
 ```
-### Run the 2 containers (in that same order):
+
+#### Step 2: run Docker containers
+
+```shell
+docker run --name minecraft-data minecraft-data
+
+# Run Minecraft server container on default port
+# with some options:
+# -ti gives you interactivity if you want to attach
+# -d makes it run in detached mode
+# --restart=always will make it restart automatically
+# --memory=1600M limits memory usage
+# --volumes-from minecraft-data mounts the data volume
+# --name minecraft-server gives it a name
+# -p 25565:25565 exposes on default Minecraft server port
+# 1536M is the max amount of memory allocated by the server
+# 1.9 is the version of the server you want to deploy
+docker run -ti -d --restart=always --memory=1600M \
+--volumes-from minecraft-data --name minecraft-server \
+-p 25565:25565 aduermael/minecraft-server 1536M 1.9
 ```
-docker run --name MCDATA aduermael/minecraft-data
-docker run -d -p 25565:25565 --volumes-from MCDATA aduermael/minecraft-server
-```
 
-You're good to go and play Minecraft with your friends! :)
+That's it! Now go play Minecraft! :)
 
-### Optionally you can run your server with a custom command such as:
+### Generate a world webmap
 
-```
-docker run -t -i -p 25565:25565 --volumes-from MCDATA aduermael/minecraft-server java -Xms1536M -Xmx2560M -jar minecraft_server.jar
-```
+#### Step 1: pull Docker images
 
-### More...
-
-You can use 2 other images I did to display a map of your Minecraft world in a web browser:
-
-### Pull 2 more images:
-```
+```shell
+# A web server that shows a webmap
 docker pull aduermael/minecraft-webmap
+# That one generates data for the web server
 docker pull aduermael/minecraft-webmap-generator
 ```
 
-### Run the web server
-```
-docker run -d -p 80:80 --name MCWEBMAP aduermael/minecraft-webmap
-```
+#### Step 2: run web server Docker container
 
-### Run the map generator
-```
-docker run --volumes-from MCDATA --volumes-from MCWEBMAP aduermael/minecraft-webmap-generator
+```shell
+docker run -d -p 80:80 --name minecraft-webmap aduermael/minecraft-webmap
 ```
 
-You can run that container every day, or hourly by setting a cron task. 
+If you enter the server IP in a web browser, you should see that message: `Minecraft webmap has not been generated yet.`, because the data hasn't been generated yet. 
 
+#### Step 3: generate data for the web server
+
+```shell
+docker run --volumes-from minecraft-data \
+--volumes-from minecraft-webmap aduermael/minecraft-webmap-generator
 ```
-@daily docker run --volumes-from MCDATA --volumes-from MCWEBMAP aduermael/minecraft-webmap-generator
+
+This container generates the world map data then exits (can take time depending on the size of your map). You can now refresh the page in your browser and see the map! :)
+
+You can run that container from time to time manually. Or schedule it with a cron task:
+
+```shell
+@daily docker run --volumes-from minecraft-data \
+--volumes-from minecraft-webmap aduermael/minecraft-webmap-generator
 ```
 
-[@a_duermael][2]
-
-
-  [1]: https://twitter.com/gaetan_dv
-  [2]: https://twitter.com/aduermael
+[@aduermael](https://twitter.com/aduermael)
