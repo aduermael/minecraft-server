@@ -29,10 +29,10 @@ docker run --name minecraft-data minecraft-data
 # --name minecraft-server gives it a name
 # -p 25565:25565 exposes on default Minecraft server port
 # 1536M is the max amount of memory allocated by the server
-# 1.9 is the version of the server you want to deploy
+# 1.10.2 is the version of the server you want to deploy
 docker run -ti -d --restart=always --memory=1600M \
 --volumes-from minecraft-data --name minecraft-server \
--p 25565:25565 aduermael/minecraft-server 1536M 1.9
+-p 25565:25565 aduermael/minecraft-server 1536M 1.10.2
 ```
 
 That's it! Now go play Minecraft! :)
