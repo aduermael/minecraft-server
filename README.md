@@ -84,12 +84,13 @@ docker run --rm -v minecraft-data:/data \
 
 This container generates the world map data then exits (can take time depending on the size of your map). You can now refresh the page in your browser and see the map! :)
 
+![screen shot 2016-06-30 at 5 36 57 pm](https://cloud.githubusercontent.com/assets/6775074/16508651/ea1b5d78-3ee9-11e6-8627-5239ec6b3556.png)
+
 You can run that container from time to time manually. Or schedule it with a cron task:
 
 ```shell
 @daily docker run --rm -v minecraft-data:/data \
 --volumes-from minecraft-map aduermael/minecraft-map-gen
 ```
--->
 
 [@aduermael](https://twitter.com/aduermael)
