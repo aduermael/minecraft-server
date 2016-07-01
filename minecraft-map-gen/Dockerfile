@@ -13,7 +13,7 @@ RUN apt-get install minecraft-overviewer -y --force-yes
 
 # Overviewer needs Minecraft textures to generate maps
 # Let's download them for a specific version:
-ENV VERSION 1.9
+ENV VERSION 1.10.2
 RUN wget --no-check-certificate https://s3.amazonaws.com/Minecraft.Download/versions/${VERSION}/${VERSION}.jar -P ~/.minecraft/versions/${VERSION}/
 
 # Add config and start script

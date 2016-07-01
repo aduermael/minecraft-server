@@ -49,6 +49,8 @@ docker run -ti -d --restart=always --memory=1600M \
 ```
 Minecraft server versions are listed here: [https://mcversions.net](https://mcversions.net)
 
+**Note:** if you use the same volume, you'll see that all your generated data has been preserved.
+
 ## Admin console
 
 You can attach in the admin console typing that command:
@@ -63,31 +65,21 @@ Use the escape sequence `Ctrl` + `p` + `Ctrl` + `q` to detach.
 [List of admin commands](http://minecraft.gamepedia.com/Commands)
 
 
-<!--
-### Generate a world webmap
+## Generate a world webmap
 
-#### Step 1: pull Docker images
-
-```shell
-# A web server that shows a webmap
-docker pull aduermael/minecraft-webmap
-# That one generates data for the web server
-docker pull aduermael/minecraft-webmap-generator
-```
-
-#### Step 2: run web server Docker container
+#### Step 1: run web server Docker container
 
 ```shell
-docker run -d -p 80:80 --name minecraft-webmap aduermael/minecraft-webmap
+docker run -d -p 80:80 --name minecraft-map aduermael/minecraft-map
 ```
 
 If you enter the server IP in a web browser, you should see that message: `Minecraft webmap has not been generated yet.`, because the data hasn't been generated yet. 
 
-#### Step 3: generate data for the web server
+#### Step 2: generate data for the web server
 
 ```shell
-docker run --volumes-from minecraft-data \
---volumes-from minecraft-webmap aduermael/minecraft-webmap-generator
+docker run --rm -v minecraft-data:/data \
+--volumes-from minecraft-map aduermael/minecraft-map-gen
 ```
 
 This container generates the world map data then exits (can take time depending on the size of your map). You can now refresh the page in your browser and see the map! :)
@@ -95,8 +87,8 @@ This container generates the world map data then exits (can take time depending 
 You can run that container from time to time manually. Or schedule it with a cron task:
 
 ```shell
-@daily docker run --volumes-from minecraft-data \
---volumes-from minecraft-webmap aduermael/minecraft-webmap-generator
+@daily docker run --rm -v minecraft-data:/data \
+--volumes-from minecraft-map aduermael/minecraft-map-gen
 ```
 -->
 
