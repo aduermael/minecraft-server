@@ -62,6 +62,8 @@ docker attach minecraft-server
 
 Use the escape sequence `Ctrl` + `p` + `Ctrl` + `q` to detach.
 
+![screen shot 2016-06-30 at 5 54 09 pm](https://cloud.githubusercontent.com/assets/6775074/16508819/aef2a7a4-3eeb-11e6-8e29-91fc9461d6fe.png)
+
 [List of admin commands](http://minecraft.gamepedia.com/Commands)
 
 
