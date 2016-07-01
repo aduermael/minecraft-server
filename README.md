@@ -69,6 +69,8 @@ Use the escape sequence `Ctrl` + `p` + `Ctrl` + `q` to detach.
 
 ## Generate a world webmap
 
+(thanks to [https://overviewer.org](https://overviewer.org))
+
 #### Step 1: run web server Docker container
 
 ```shell
