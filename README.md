@@ -3,40 +3,67 @@ Dockerized Minecraft server
 
 A set of containers to run a Minecraft server, store generated data, and generate a world webmap.
 
-### Quick setup
+## Quick setup
 
-#### Step 1: pull Docker images
+#### Step 1: create a volume to store generated data
 
 ```shell
-# Simple volume container to store generated data
-docker pull aduermael/minecraft-data
-# The Minecraft server
-docker pull aduermael/minecraft-server
+docker volume create --name minecraft-data
 ```
 
-#### Step 2: run Docker containers
+#### Step 2: run the Minecraft server!
 
 ```shell
-docker run --name minecraft-data minecraft-data
+docker run -ti -d -v minecraft-data:/data --name minecraft-server \
+-p 25565:25565 aduermael/minecraft-server 
+```
 
-# Run Minecraft server container on default port
-# with some options:
+Tadam! You now have a `1.10.2` Minecraft server running that will use up to `2G` of RAM.
+
+## More options
+
+You can easily configure your server with a few options if needed.
+
+#### Step 1: stop & remove your running container
+
+```shell
+docker stop minecraft-server
+docker rm minecraft-server
+```
+
+#### Step 2: re-run with more options
+
+```shell
 # -ti gives you interactivity if you want to attach
 # -d makes it run in detached mode
 # --restart=always will make it restart automatically
 # --memory=1600M limits memory usage
-# --volumes-from minecraft-data mounts the data volume
+# -v minecraft-data:/data mounts the data volume
 # --name minecraft-server gives it a name
 # -p 25565:25565 exposes on default Minecraft server port
 # 1536M is the max amount of memory allocated by the server
-# 1.10.2 is the version of the server you want to deploy
+# 1.10.2 is the version of Minecraft server that you want to use
 docker run -ti -d --restart=always --memory=1600M \
---volumes-from minecraft-data --name minecraft-server \
+-v minecraft-data:/data --name minecraft-server \
 -p 25565:25565 aduermael/minecraft-server 1536M 1.10.2
 ```
+Minecraft server versions are listed here: [https://mcversions.net](https://mcversions.net)
 
-That's it! Now go play Minecraft! :)
+## Admin console
 
+You can attach in the admin console typing that command:
+
+```shell
+docker attach minecraft-server
+# (you may have to type "enter" then to display first line)
+```
+
+Use the escape sequence `Ctrl` + `p` + `Ctrl` + `q` to detach.
+
+[List of admin commands](http://minecraft.gamepedia.com/Commands)
+
+
+<!--
 ### Generate a world webmap
 
 #### Step 1: pull Docker images
@@ -71,5 +98,6 @@ You can run that container from time to time manually. Or schedule it with a cro
 @daily docker run --volumes-from minecraft-data \
 --volumes-from minecraft-webmap aduermael/minecraft-webmap-generator
 ```
+-->
 
 [@aduermael](https://twitter.com/aduermael)
