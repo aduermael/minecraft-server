@@ -1,0 +1,13 @@
+worlds["Minecraft world"] = "/data/world"
+outputdir = "/webmap"
+
+end_lighting = [Base(), EdgeLines(), Lighting(strength=0.5)]
+
+def signFilter(poi):
+    if poi['id'] == 'Sign':
+        return "\n".join([poi['Text1'], poi['Text2'], poi['Text3'], poi['Text4']])
+
+def playerIcons(poi):
+    if poi['id'] == 'Player':
+        poi['icon'] = "http://overviewer.org/avatar/%s" % poi['EntityId']
+        return "Last known location for %s" % poi['EntityId']
