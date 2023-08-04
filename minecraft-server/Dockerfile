@@ -1,14 +1,8 @@
-FROM ubuntu:14.04
+FROM eclipse-temurin:17-jre-focal
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install software-properties-common curl -y
-
-RUN apt-add-repository ppa:webupd8team/java -y
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
-    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-RUN apt-get update
-RUN apt-get install oracle-java8-installer -y
+RUN apt-get install jq curl -y
 
 ADD ./start.sh /start.sh
 RUN chmod +x /start.sh
